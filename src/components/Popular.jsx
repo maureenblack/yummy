@@ -1,14 +1,31 @@
-import { useEffect } from "react";
+/* eslint-disable no-unused-vars */
+import { useEffect, useState } from "react";
 
 function Popular() {
+    const [popular, setPopular] = useState([]);
+    
     useEffect(() => {
         getPopular();
     }, []);
     const getPopular = async() =>{
-        const api = await fetch (`https://api.spoonacular.com/recipes/findByNutrients?apiKey=${process.env.REACT_APP_API_KEY}&number=9`)
+        const api = await fetch (`https://www.themealdb.com/api/json/v1/1/categories.php?apiKey=1`)
     const data = await api.json();
-    console.log(data);
+    console.log(JSON.stringify(data))
+    setPopular(data.categories);
 };
- return <div>Popular</div>;
+
+
+return( 
+ <div>
+    {popular.map((category) => {
+        return(
+            <div key={category.idCategory}>
+              <p> {category.strCategory}</p>
+            </div>
+        );
+    })}
+
+    </div>
+ );
 }
 export default Popular;
