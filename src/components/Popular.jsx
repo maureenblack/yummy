@@ -13,7 +13,7 @@ function Popular() {
     const getPopular = async() =>{
         const api = await fetch (`https://www.themealdb.com/api/json/v1/1/categories.php?apiKey=1`)
     const data = await api.json();
-    console.log(JSON.stringify(data))
+    // console.log(JSON.stringify(data))
     setPopular(data.categories);
 };
    /* <div key={category.idCategory}>

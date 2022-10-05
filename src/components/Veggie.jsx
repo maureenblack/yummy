@@ -7,15 +7,13 @@ import "@splidejs/splide/dist/css/splide.min.css";
 function Veggie() {
   const [veggie, setVeggie] = useState([]);
   
-  // useEffect(() => {
-  //     getVeggie();
-  // }, []);
-  const getVeggie = async() =>{
-const api = await fetch (`https://www.themealdb.com/api/json/v1/1/filter.php?c=vegetarian.php?apiKey=1`) 
-  const data = await api.json();
-  console.log(JSON.stringify(data))
-  setVeggie(data.categories);
-};
+  useEffect(() => {
+    fetch ('http://localhost:8000/vegetarians')
+    .then(res=>res.json())
+    .then(data=> setVeggie(data))
+  }, []);
+
+
 
   return (
     <div>
@@ -31,10 +29,10 @@ const api = await fetch (`https://www.themealdb.com/api/json/v1/1/filter.php?c=v
          >
     {veggie.map((vegetarian) =>{
         return(
-            <SplideSlide key={vegetarian.idCategory}> 
+            <SplideSlide key={vegetarian.idMeal}> 
             <Card> 
             <p>{vegetarian.strMeal}</p>
-<img src={vegetarian.strMealThumb} alt={vegetarian.strVegetarian} />
+<img src={vegetarian.strMealThumb} alt={vegetarian.strMeal} />
           <Gradient /> 
             </Card>
             </SplideSlide>
